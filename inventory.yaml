@@ -2,17 +2,32 @@ all:
   hosts:
     ubuntu-target1:
       ansible_host: 172.31.34.124
-      ansible_user: ubuntu
-      ansible_ssh_private_key_file: target.pem 
     ubuntu-target2:
       ansible_host: 172.31.37.103
-      ansible_user: ubuntu
-      ansible_ssh_private_key_file: target.pem 
     centos-target3:
       ansible_host: 172.31.34.231
-      ansible_user: ec2-user
-      ansible_ssh_private_key_file: target.pem 
     centos-target4:
       ansible_host: 172.31.46.13
-      ansible_user: ec2-user
-      ansible_ssh_private_key_file: target.pem 
+
+  children:
+    centos_servers:
+      hosts:
+        centos-target3:
+        centos-target4:
+      vars:
+        ansible_user: ec2-user
+
+    ubuntu_servers:
+      hosts:
+        ubuntu-target1:
+        ubuntu-target2:
+      vars:
+        ansible_user: ubuntu
+
+    servers:
+      children:
+        centos_servers:
+        ubuntu_servers:
+      vars:
+        ansible_ssh_private_key_file: target.pem
+
