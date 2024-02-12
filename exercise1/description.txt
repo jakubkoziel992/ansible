@@ -1,0 +1,13 @@
+Content of the task:
+
+Perform 'uptime' command in all servers except 'ubuntu-target1'. Do not create playbook, use ad-hoc commands.
+
+
+
+It's simple task, performed using ad-hoc command:
+
+command used:
+ansible 'servers:!ubuntu-target1' -i inventory.yaml -m command -a "uptime"
+
+It is possible to use --limit in command:
+ansible all -i inventory.yaml -m command -a 'uptime' --limit 'all:!ubuntu-target1'
