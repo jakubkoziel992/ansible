@@ -1,11 +1,13 @@
 ---
-- hosts: ubuntu1
+- hosts: all
   become: True
   vars:
-    user: ubuntu
+    ubuntu_user: ubuntu
+    centos_user: ec2-user
   tasks:
     - name: copying ssh key to remote host
       ansible.posix.authorized_key:
-        user: '{{ user }}'
+        user: '{{ ubuntu_user }}'
         state: present
         key: "{{ lookup('file','/home/ubuntu/Ansible/task2/SSH_KEYS/id_rsa_key1.pub') }}"
+      when: ansible_distribution == "Ubuntu"
