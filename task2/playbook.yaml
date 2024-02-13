@@ -4,12 +4,22 @@
   vars:
     ubuntu_user: ubuntu
     centos_user: ec2-user
+    keys_path: /home/ubuntu/Ansible/task2/SSH_KEYS/
   tasks:
-    - name: copying ssh key to remote host
+    - name: copying ssh key to remote host for Ubuntu
       ansible.posix.authorized_key:
         user: '{{ ubuntu_user }}'
         state: present
         key: "{{ lookup('file', item) }}"
       with_fileglob:
-        - /home/ubuntu/Ansible/task2/SSH_KEYS/*.pub
+        - "{{ keys_path }}*.pub"
       when: ansible_distribution == "Ubuntu"
+
+    - name: copying ssh key to remote host for CentOS
+      ansible.posix.authorized_key:
+        user: '{{ centos_user }}'
+        state: present
+        key: "{{ lookup('file', item) }}"
+      with_fileglob:
+        - "{{ keys_path }}*.pub"
+      when: ansible_distribution == "CentOS"
