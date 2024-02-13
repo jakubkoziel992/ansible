@@ -9,5 +9,7 @@
       ansible.posix.authorized_key:
         user: '{{ ubuntu_user }}'
         state: present
-        key: "{{ lookup('file','/home/ubuntu/Ansible/task2/SSH_KEYS/id_rsa_key1.pub') }}"
+        key: "{{ lookup('file', item) }}"
+      with_fileglob:
+        - /home/ubuntu/Ansible/task2/SSH_KEYS/*.pub
       when: ansible_distribution == "Ubuntu"
