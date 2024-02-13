@@ -1,0 +1,11 @@
+---
+- hosts: ubuntu1
+  become: True
+  vars:
+    user: ubuntu
+  tasks:
+    - name: copying ssh key to remote host
+      ansible.posix.authorized_key:
+        user: '{{ user }}'
+        state: present
+        key: "{{ lookup('file','/home/ubuntu/Ansible/task2/SSH_KEYS/id_rsa_key1.pub') }}"
