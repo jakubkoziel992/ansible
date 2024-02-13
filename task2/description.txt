@@ -1,5 +1,5 @@
 Task:
-
+Create a "SSH_KEYS" directory and put three public SSH keys into it (each in a separate file). Add each of them to the authorized_keys on all servers with inventory
 
 
 
