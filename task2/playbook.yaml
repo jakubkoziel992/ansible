@@ -30,4 +30,4 @@
         msg: "{{ item.invocation.module_args.key }}"
       with_items: "{{ out.results }}"
       loop_control:
-        label: "key"
+        label: "{{ item.user }}"
