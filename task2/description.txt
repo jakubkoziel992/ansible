@@ -1,0 +1,13 @@
+Task:
+Create a "SSH_KEYS" directory and put three public SSH keys into it (each in a separate file). Add each of them to the authorized_keys on all servers with inventory
+
+
+
+
+Steps:
+
+1. To use authorized_key module, check that the installed ansible.posix collection is installed. Use follow command:
+ansible-galaxy collection list
+
+If there is no ansible.posix collection install it:
+ansible-galaxy collection install ansible.posix

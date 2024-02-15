@@ -1,7 +1,7 @@
 all:
   hosts:
     ubuntu1:
-      ansible_host: 172.31.17.31
+      ansible_host: 172.31.31.160
     ubuntu2:
       ansible_host: 172.31.37.103
     centos3:
@@ -29,5 +29,5 @@ all:
         centos_servers:
         ubuntu_servers:
       vars:
-        ansible_ssh_private_key_file: target.pem
+        ansible_ssh_private_key_file: ../target.pem
 
