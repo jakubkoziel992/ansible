@@ -1,15 +1,14 @@
 ---
 - hosts: all
-  become: True
+  become: true
   vars:
     keys_path: /home/ubuntu/Ansible/task2/SSH_KEYS/
-
   tasks:
     - name: set fact for Ubuntu
       set_fact:
         user: ubuntu
       when: ansible_distribution == "Ubuntu"
-        
+
     - name: set fact for CentOS
       set_fact:
         user: ec2-user
@@ -25,3 +24,10 @@
       register: out
 
 
+
+    - name: show keys
+      debug:
+        msg: "{{ item.invocation.module_args.key }}"
+      with_items: "{{ out.results }}"
+      loop_control:
+        label: "key"
