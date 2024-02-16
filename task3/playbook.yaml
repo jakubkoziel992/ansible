@@ -1,0 +1,19 @@
+---
+- hosts: ubuntu_servers
+  become: True
+  tasks:
+
+    - name: install fail2ban package
+      apt: 
+        name: fail2ban
+        state: present
+      notify: start fail2ban
+
+
+  handlers:
+    - name: start fail2ban
+      service:
+        name: fail2ban
+        enabled: true
+        state: started
+
