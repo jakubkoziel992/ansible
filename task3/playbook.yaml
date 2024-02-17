@@ -1,14 +1,25 @@
 ---
 - hosts: ubuntu_servers
   become: True
+  vars:
+    ips:
+      - 172.31.31.160
+      - 172.31.37.103
+      - 172.31.34.231
+      - 172.31.46.13
   tasks:
-
     - name: install fail2ban package
       apt: 
         name: fail2ban
         state: present
       notify: start fail2ban
 
+    - name: change configuration file
+      lineinfile:
+        path: /etc/fail2ban/jail.conf
+        regexp: '^ignoreip = '
+        line: "ignoreip = {{  ips | join(';') }}"
+      notify: reload fail2ban
 
   handlers:
     - name: start fail2ban
@@ -16,4 +27,10 @@
         name: fail2ban
         enabled: true
         state: started
+
+    - name: reload fail2ban
+      service:
+        name: fail2ban
+        state: reloaded
+      changed_when: False
 
