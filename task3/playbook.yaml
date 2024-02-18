@@ -2,12 +2,10 @@
 - hosts: ubuntu_servers
   become: True
   vars:
-    ips:
-      - 172.31.31.160
-      - 172.31.37.103
-      - 172.31.34.231
-      - 172.31.46.13
+    ips: "{{ groups['ubuntu_servers'] | map('extract',hostvars,['ansible_host']) | join(';') }}"
+
   tasks:
+
     - name: install fail2ban package
       apt: 
         name: fail2ban
@@ -18,7 +16,7 @@
       lineinfile:
         path: /etc/fail2ban/jail.conf
         regexp: '^ignoreip = '
-        line: "ignoreip = {{  ips | join(';') }}"
+        line: "ignoreip = {{ ips }}"
       notify: reload fail2ban
 
   handlers:
