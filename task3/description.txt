@@ -1,0 +1,7 @@
+Task:
+Install fail2ban on each server. Configure it so that it does not ban any server from the inventory.
+After changes, reload fail2ban, but make the reload not mark the server status as 'changed'.
+
+
+
+Steps:
