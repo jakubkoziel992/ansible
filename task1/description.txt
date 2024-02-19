@@ -7,7 +7,7 @@ Perform 'uptime' command in all servers except 'ubuntu-target1'. Do not create p
 It's simple task, performed using ad-hoc command:
 
 command used:
-ansible 'servers:!ubuntu-target1' -i inventory.yaml -m command -a "uptime"
+ansible 'servers:!ubuntu-target1' -i inventory.yaml -m command -a "uptime" --ask-vault-pass
 
 It is possible to use --limit in command:
-ansible all -i inventory.yaml -m command -a 'uptime' --limit 'all:!ubuntu-target1'
+ansible all -i inventory.yaml -m command -a 'uptime' --limit 'all:!ubuntu-target1' --ask-vault-pass
